@@ -1,3 +1,3 @@
 describe('UserController', () => {
-  test('It should', () => {});
+  it('Should receive only values ', () => {});
 });
