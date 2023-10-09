@@ -6,10 +6,17 @@ export const Container = styled.div`
 	height: 100vh;
 	align-items: center;
 	justify-content: center;
+
+	background-color: #edf7f6;
 `;
 
 export const CardCustom = styled(Card)`
 	width: 500px;
+
+	@media screen and (max-width: 620px) {
+		width: 100%;
+		max-width: calc(100% - 40px);
+	}
 `;
 
 export const FormItem = styled(Form.Item)`

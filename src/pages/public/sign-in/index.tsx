@@ -1,12 +1,13 @@
 import { FC } from "react";
-import { Link } from "react-router-dom";
-import { Button, Form, Input, Typography } from "antd";
+
 import {
 	EyeTwoTone,
 	LockOutlined,
 	UserOutlined,
 	EyeInvisibleOutlined,
 } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import { Form, Input } from "antd";
 import {
 	FormItem,
 	Container,
@@ -14,56 +15,53 @@ import {
 	CardHeader,
 	ContainerLink,
 } from "./styles";
+
+import LogoImg from "@assets/images/logo.svg";
 import { RULES } from "../../../utils/rules";
-import Logo from "@/assets/images/logo.svg";
-const { Title } = Typography;
+import { SubmitButton } from "@/components/SubmitButton";
+import { Logo } from "@/components/Logo";
+import { ILoginRequest } from "@/interfacers/auth/request/ILoginRequest";
+import { useAuth } from "@/hooks.ts/useAuth";
 
 export const SignIn: FC = () => {
-	console.log(Logo);
+	const [form] = Form.useForm();
+	const { onSignIn } = useAuth();
+
+	const onSubmit = async (values: ILoginRequest) => {
+		await onSignIn(values);
+	};
+
 	return (
 		<Container>
 			<CardCustom>
 				<CardHeader>
-					<img src={Logo} alt="" />
+					<Logo src={LogoImg} alt="Live event flux" />
 				</CardHeader>
-				<Form name="normal_login" className="login-form">
-					<FormItem name="username" rules={RULES.EMAIL}>
+				<Form name="login_form" form={form} onFinish={onSubmit}>
+					<FormItem name="email" rules={RULES.EMAIL}>
 						<Input
 							prefix={<UserOutlined className="site-form-item-icon" />}
-							placeholder="Username"
+							placeholder="Email"
 						/>
 					</FormItem>
 					<FormItem name="password" rules={RULES.PASSWORD}>
 						<Input.Password
 							type="password"
 							prefix={<LockOutlined className="site-form-item-icon" />}
-							placeholder="input password"
+							placeholder="Senha"
 							iconRender={(visible) =>
 								visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
 							}
 						/>
 					</FormItem>
 					<ContainerLink style={{ marginBottom: 20 }}>
-						<Link
-							style={{ float: "right" }}
-							className="login-form-forgot"
-							to="/forget-password"
-						>
-							Esqueceu a senha? clique aqui.
-						</Link>
+						Esqueceu a senha? <Link to="/forget-password">clique aqui.</Link>
 					</ContainerLink>
 					<FormItem>
-						<Button
-							type="primary"
-							htmlType="submit"
-							className="login-form-button"
-							block
-						>
-							Log in
-						</Button>
+						<SubmitButton form={form} label="Entrar" />
 					</FormItem>
 					<ContainerLink>
-						Não têm uma conta?<Link to="/signup"> registre-se</Link>
+						Não têm uma conta?<Link to="/signup"> registre-se.</Link>
 					</ContainerLink>
 				</Form>
 			</CardCustom>

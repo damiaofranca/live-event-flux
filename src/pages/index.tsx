@@ -1,27 +1,35 @@
 import { FC } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { PUBLIC_SCREENS } from "./public";
+import { AuthProvider } from "@/providers/auth";
+import { PRIVATE_PAGES } from "./private";
+import { ProtectedPage } from "@/components/protect-page";
 
 export const Pages: FC = () => {
 	const router = createBrowserRouter([
-		// {
-		// 	path: "/app",
-		// 	children: ROUTES_PAGES,
-		// 	element: (
-		// 		<COMPONENTS.ProtectedPage element={Layout} validadePage={true} />
-		// 	),
-		// },
 		{
-			path: "/",
-			element: <PUBLIC_SCREENS.LandingPage />,
+			path: "/app",
+			children: PRIVATE_PAGES.ROUTES_PAGES,
+			element: (
+				<ProtectedPage element={PRIVATE_PAGES.Layout} validadePage={true} />
+			),
 		},
 		{
 			path: "/login",
 			element: <PUBLIC_SCREENS.SignIn />,
 		},
+
+		{
+			path: "/",
+			element: <PUBLIC_SCREENS.LandingPage />,
+		},
 	]);
 
-	return <RouterProvider router={router} />;
+	return (
+		<AuthProvider>
+			<RouterProvider router={router} />
+		</AuthProvider>
+	);
 };
 
 export default Pages;

@@ -1,5 +1,8 @@
 import React from "react";
+import { fromUnixTime, isAfter } from "date-fns";
 import { Navigate, Outlet } from "react-router-dom";
+
+import { decodeHash, removeToken } from "@/utils/cript";
 
 export type IProtectedPageProps = {
 	redirectTo?: string;
@@ -14,10 +17,15 @@ export const ProtectedPage: React.FC<IProtectedPageProps> = ({
 	validadePage = true,
 	redirectTo = "/login",
 }) => {
-	const user = false;
+	const user = decodeHash();
+
+	if (!user) {
+		removeToken();
+		return <Navigate to={redirectTo} />;
+	}
 
 	if (validadePage) {
-		if (!user) {
+		if (!user || isAfter(new Date(), fromUnixTime(user.exp))) {
 			return <Navigate to={redirectTo} />;
 		}
 	}
