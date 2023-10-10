@@ -1,9 +1,13 @@
 import { FC } from "react";
+import { ToastContainer } from "react-toastify";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
 import { PUBLIC_SCREENS } from "./public";
-import { AuthProvider } from "@/providers/auth";
 import { PRIVATE_PAGES } from "./private";
+import { AuthProvider } from "@/providers/auth";
+import { ThemeProvider } from "@/providers/theme";
 import { ProtectedPage } from "@/components/protect-page";
+import "react-toastify/dist/ReactToastify.min.css";
 
 export const Pages: FC = () => {
 	const router = createBrowserRouter([
@@ -11,12 +15,28 @@ export const Pages: FC = () => {
 			path: "/app",
 			children: PRIVATE_PAGES.ROUTES_PAGES,
 			element: (
-				<ProtectedPage element={PRIVATE_PAGES.Layout} validadePage={true} />
+				<AuthProvider>
+					<ProtectedPage element={PRIVATE_PAGES.Layout} validadePage={true} />
+				</AuthProvider>
 			),
 		},
 		{
 			path: "/login",
-			element: <PUBLIC_SCREENS.SignIn />,
+			element: (
+				<AuthProvider>
+					{" "}
+					<PUBLIC_SCREENS.SignIn />
+				</AuthProvider>
+			),
+		},
+
+		{
+			path: "/register",
+			element: (
+				<AuthProvider>
+					<PUBLIC_SCREENS.SignUp />
+				</AuthProvider>
+			),
 		},
 
 		{
@@ -26,9 +46,10 @@ export const Pages: FC = () => {
 	]);
 
 	return (
-		<AuthProvider>
+		<ThemeProvider>
 			<RouterProvider router={router} />
-		</AuthProvider>
+			<ToastContainer />
+		</ThemeProvider>
 	);
 };
 

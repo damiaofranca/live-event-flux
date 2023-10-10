@@ -1,7 +1,7 @@
 import axios from "axios";
 import { redirect } from "react-router-dom";
 
-import { decodeToken } from "@/utils/cript";
+import { decodeToken, removeToken } from "@/utils/cript";
 
 const baseURL = import.meta.env.VITE_API_URL;
 
@@ -33,7 +33,7 @@ axios.interceptors.response.use(
 			response.data.message === "EXPIRED_TOKEN"
 		) {
 			if (typeof token_local === "string") {
-				localStorage.removeItem(token_local);
+				removeToken();
 				redirect("/login");
 			}
 		}

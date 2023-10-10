@@ -3,7 +3,7 @@
 interface ImportMetaEnv {
 	readonly VITE_API_URL: string;
 	readonly VITE_LOCAL_TOKEN: string;
-	readonly VITE_encryptToken: string;
+	readonly VITE_ENCRYPT_TOKEN: string;
 }
 
 interface ImportMeta {

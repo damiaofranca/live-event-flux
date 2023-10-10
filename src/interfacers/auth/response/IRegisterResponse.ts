@@ -1,1 +1,1 @@
-export interface IRegisterRequest {}
+export interface IRegisterResponse {}

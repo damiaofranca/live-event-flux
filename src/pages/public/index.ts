@@ -1,7 +1,10 @@
+import { SignIn } from "./signIn";
+import { SignUp } from "./signUp";
 import { LandingPage } from "./landing-page";
-import { SignIn } from "./sign-in";
 
 export const PUBLIC_SCREENS = {
-	SignIn,
 	LandingPage,
+
+	SignIn,
+	SignUp,
 };
