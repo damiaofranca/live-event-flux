@@ -1,7 +1,7 @@
 import axios from "axios";
 import { redirect } from "react-router-dom";
 
-import { decodeToken, removeToken } from "@/utils/cript";
+import { decodeToken, removeToken } from "@/utils/script";
 
 const baseURL = import.meta.env.VITE_API_URL;
 

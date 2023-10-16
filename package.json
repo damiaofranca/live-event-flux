@@ -11,8 +11,6 @@
 	},
 	"dependencies": {
 		"@fluentui/react-components": "^9.34.2",
-		"@fluentui/react-icons": "^2.0.219",
-		"antd": "^5.9.4",
 		"axios": "^1.5.1",
 		"crypto-js": "^4.1.1",
 		"date-fns": "^2.30.0",

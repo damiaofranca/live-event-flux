@@ -3,7 +3,7 @@ import { FC, ReactNode, createContext } from "react";
 
 import api from "@/api";
 import { IAuthContext } from "./types";
-import { encryptToken } from "@/utils/cript";
+import { encryptToken, removeToken } from "@/utils/script";
 
 import {
 	ILoginRequest,
@@ -12,10 +12,12 @@ import {
 } from "@/interfacers/auth/ILogin";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext({} as IAuthContext);
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
+	const navigate = useNavigate();
 	const onSignIn = async (values: ILoginRequest) => {
 		try {
 			const { data } = await api.post<ILoginResponse>("/auth/signin", values);
@@ -46,8 +48,13 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 		}
 	};
 
+	const onSignOut = () => {
+		removeToken();
+		navigate("/");
+	};
+
 	return (
-		<AuthContext.Provider value={{ onSignIn, onSignUp }}>
+		<AuthContext.Provider value={{ onSignIn, onSignUp, onSignOut }}>
 			{children}
 		</AuthContext.Provider>
 	);

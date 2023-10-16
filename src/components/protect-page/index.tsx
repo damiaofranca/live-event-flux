@@ -2,7 +2,7 @@ import React from "react";
 import { fromUnixTime, isAfter } from "date-fns";
 import { Navigate, Outlet } from "react-router-dom";
 
-import { decodeHash, removeToken } from "@/utils/cript";
+import { decodeHash, removeToken } from "@/utils/script";
 
 export type IProtectedPageProps = {
 	redirectTo?: string;

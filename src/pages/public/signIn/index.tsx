@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button, Card, Label } from "@fluentui/react-components";
 
 import { useAuth } from "@/hooks";
-import LogoImg from "@assets/images/logo.svg";
 import { Logo, InputForm, Loading } from "@/components";
 
 import { useStyles } from "./styles";
@@ -46,7 +45,7 @@ export const SignIn: FC = () => {
 		<div className={classes.root}>
 			<Card className={classes.card}>
 				<div className={classes.header}>
-					<Logo src={LogoImg} alt="Live event flux" />
+					<Logo />
 				</div>
 				<form name="login_form" onSubmit={handleSubmit}>
 					<div className={classes.formItem}>

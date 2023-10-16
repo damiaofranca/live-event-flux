@@ -1,10 +1,15 @@
 import { FC } from "react";
-import { Outlet } from "react-router-dom";
 
-export const Layout: FC = () => {
+import { Main, Nav } from "@/components";
+import { useStyles } from "./styles";
+
+export const LayoutStructure: FC = () => {
+	const styles = useStyles();
+	// <Outlet />
 	return (
-		<div style={{ display: "flex", flexDirection: "column" }}>
-			dadas <Outlet></Outlet>{" "}
+		<div className={styles.root}>
+			<Nav />
+			<Main />
 		</div>
 	);
 };

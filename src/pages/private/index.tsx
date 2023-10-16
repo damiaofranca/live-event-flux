@@ -1,6 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import { Dashboard } from "./Dashboard";
-import { Layout } from "./Layout";
+import { LayoutStructure } from "./Layout";
 
 const ROUTES_PAGES: RouteObject[] = [
 	{
@@ -9,4 +9,4 @@ const ROUTES_PAGES: RouteObject[] = [
 	},
 ];
 
-export const PRIVATE_PAGES = { ROUTES_PAGES, Layout };
+export const PRIVATE_PAGES = { ROUTES_PAGES, LayoutStructure };

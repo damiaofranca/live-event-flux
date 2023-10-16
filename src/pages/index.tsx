@@ -16,7 +16,10 @@ export const Pages: FC = () => {
 			children: PRIVATE_PAGES.ROUTES_PAGES,
 			element: (
 				<AuthProvider>
-					<ProtectedPage element={PRIVATE_PAGES.Layout} validadePage={true} />
+					<ProtectedPage
+						validadePage={true}
+						element={PRIVATE_PAGES.LayoutStructure}
+					/>
 				</AuthProvider>
 			),
 		},

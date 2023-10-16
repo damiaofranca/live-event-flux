@@ -51,7 +51,7 @@ export const SignUp: FC = () => {
 		<div className={classes.root}>
 			<Card className={classes.card}>
 				<div className={classes.header}>
-					<Logo src={LogoImg} alt="Live event flux" />
+					<Logo />
 				</div>
 				<Text as="h3" size={600} weight="medium">
 					Registre-se
