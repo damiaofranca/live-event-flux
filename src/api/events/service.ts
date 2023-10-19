@@ -6,6 +6,7 @@ import {
 	IUpdateRequest,
 	IGetOneResponse,
 	IGetAllResponse,
+	IDeleteGuestRequest,
 } from "@/interfacers/event";
 import { EventAbstraction } from "./abstraction";
 
@@ -30,5 +31,9 @@ export class EventService implements EventAbstraction {
 
 	public delete(payload: IDeleteRequest): Promise<void> {
 		return this.repo.delete(payload);
+	}
+
+	public deleteGuest(payload: IDeleteGuestRequest): Promise<void> {
+		return this.repo.deleteGuest(payload);
 	}
 }

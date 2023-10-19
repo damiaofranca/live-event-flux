@@ -4,6 +4,7 @@ export * from "./Main";
 export * from "./Logo";
 export * from "./InputForm";
 export * from "./EventList";
+export * from "./GuestList";
 export * from "./PageHeader";
 export * from "./ProtectPage";
 export * from "./SkeletonEvent";

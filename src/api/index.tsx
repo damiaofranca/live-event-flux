@@ -1,7 +1,10 @@
 import axios from "axios";
+import { QueryClient } from "react-query";
 import { redirect } from "react-router-dom";
 
 import { decodeTokenAsync, removeToken } from "@/utils/script";
+
+export const queryClient = new QueryClient();
 
 const baseURL = import.meta.env.VITE_API_URL;
 

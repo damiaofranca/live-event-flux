@@ -6,6 +6,7 @@ import {
 	IUpdateRequest,
 	IGetAllResponse,
 	IGetOneResponse,
+	IDeleteGuestRequest,
 } from "@/interfacers/event";
 
 export abstract class EventAbstraction {
@@ -18,4 +19,6 @@ export abstract class EventAbstraction {
 	public abstract update(payload: IUpdateRequest): Promise<void>;
 
 	public abstract delete(payload: IDeleteRequest): Promise<void>;
+
+	public abstract deleteGuest(payload: IDeleteGuestRequest): Promise<void>;
 }

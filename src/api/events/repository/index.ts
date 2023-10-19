@@ -3,12 +3,13 @@ import { AxiosInstance } from "axios";
 
 import {
 	ICreateRequest,
-	IDeleteRequest,
 	IGetAllRequest,
-	IGetAllResponse,
-	IGetOneRequest,
-	IGetOneResponse,
 	IUpdateRequest,
+	IDeleteRequest,
+	IGetOneRequest,
+	IGetAllResponse,
+	IGetOneResponse,
+	IDeleteGuestRequest,
 } from "@/interfacers/event";
 import { EventAbstraction } from "../abstraction";
 
@@ -35,5 +36,11 @@ export class ApiRepository implements EventAbstraction {
 
 	public delete(_payload: IDeleteRequest): Promise<void> {
 		return this._api.delete(`/events/${_payload.id}`);
+	}
+
+	public deleteGuest(_payload: IDeleteGuestRequest): Promise<void> {
+		return this._api.delete(`/events/${_payload.id}/guest`, {
+			data: { email: _payload.guest },
+		});
 	}
 }

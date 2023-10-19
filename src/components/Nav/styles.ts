@@ -8,6 +8,7 @@ export const useStyles = makeStyles({
 		paddingLeft: "28px",
 		paddingRight: "28px",
 		alignItems: "center",
+		justifyContent: "space-between",
 		backgroundColor: tokens.colorNeutralBackground3,
 
 		"@media screen and (max-width: 620px)": {

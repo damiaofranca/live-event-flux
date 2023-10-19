@@ -5,6 +5,8 @@ import { IUpdateRequest } from "./request/IUpdate";
 import { IDeleteRequest } from "./request/IDelete";
 import { IGetOneResponse } from "./response/IGetOne";
 import { IGetAllResponse } from "./response/IGetAll";
+import { IDeleteGuestRequest } from "./request/IDeleteGuest";
+import { IDeleteGuestResponse } from "./response/IDeleteGuest";
 
 export interface IEvent {
 	id: string;
@@ -24,4 +26,6 @@ export type {
 	IDeleteRequest,
 	IGetAllResponse,
 	IGetOneResponse,
+	IDeleteGuestRequest,
+	IDeleteGuestResponse,
 };

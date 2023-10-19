@@ -1,4 +1,4 @@
-import { makeStyles, shorthands } from "@fluentui/react-components";
+import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
 
 export const useStyles = makeStyles({
 	tableCell: {
@@ -6,7 +6,6 @@ export const useStyles = makeStyles({
 		paddingTop: "10px",
 		paddingBottom: "10px",
 		"::-webkit-scrollbar-track": {
-			"-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.3)",
 			backgroundColor: "#F5F5F5",
 		},
 		"::-webkit-scrollbar": {
@@ -14,9 +13,25 @@ export const useStyles = makeStyles({
 			backgroundColor: "red",
 		},
 		"::-webkit-scrollbar-thumb": {
-			backgroundColor: "#000000",
+			backgroundColor: tokens.colorNeutralForeground1,
 		},
 	},
+
+	actionsDesktop: {
+		display: "flex",
+		"@media screen and (max-width: 790px)": {
+			display: "none",
+		},
+	},
+
+	actionsMobile: {
+		display: "none",
+
+		"@media screen and (max-width: 790px)": {
+			display: "flex",
+		},
+	},
+
 	containerAction: {
 		...shorthands.marginInline("0", "8px"),
 	},
