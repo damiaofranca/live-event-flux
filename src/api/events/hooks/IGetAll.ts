@@ -1,6 +1,7 @@
-import { isFunction } from "@/utils/checker";
-import { eventService } from "..";
 import { useQuery } from "react-query";
+
+import { eventService } from "..";
+import { isFunction } from "@/utils/checker";
 import { IGetAllRequest } from "@/interfacers/event";
 
 export const useGetAll = (payload: IGetAllRequest | (() => IGetAllRequest)) => {

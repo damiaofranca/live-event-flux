@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, ReactNode, createContext } from "react";
 
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 import api from "@/api";
 import { IAuthContext } from "./types";
 import { encryptToken, removeToken } from "@/utils/script";
@@ -10,9 +14,6 @@ import {
 	ILoginResponse,
 	IRegisterRequest,
 } from "@/interfacers/auth/ILogin";
-import { AxiosError } from "axios";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext({} as IAuthContext);
 

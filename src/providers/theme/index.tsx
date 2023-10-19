@@ -1,8 +1,8 @@
 import { FC, ReactNode, createContext, useEffect, useState } from "react";
 import {
-	FluentProvider,
-	webLightTheme,
 	webDarkTheme,
+	webLightTheme,
+	FluentProvider,
 } from "@fluentui/react-components";
 
 import { IThemeContext } from "./types";

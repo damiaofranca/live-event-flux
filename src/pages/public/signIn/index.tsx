@@ -2,13 +2,13 @@ import { FC, useState } from "react";
 
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Card, Label } from "@fluentui/react-components";
+import { Button, Card, Label, Spinner } from "@fluentui/react-components";
 
 import { useAuth } from "@/hooks";
-import { Logo, InputForm, Loading } from "@/components";
+import { loginSchema } from "./schema";
+import { Logo, InputForm } from "@/components";
 
 import { useStyles } from "./styles";
-import { loginSchema } from "./schema";
 
 export const SignIn: FC = () => {
 	const classes = useStyles();
@@ -91,7 +91,7 @@ export const SignIn: FC = () => {
 							iconPosition="after"
 							className={classes.submitBtn}
 							disabled={!(isValid && dirty)}
-							icon={isLoading ? <Loading raio={8} /> : <></>}
+							icon={isLoading ? <Spinner size="tiny" /> : <></>}
 						>
 							Entrar
 						</Button>

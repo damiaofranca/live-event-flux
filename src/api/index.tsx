@@ -1,7 +1,7 @@
 import axios from "axios";
 import { redirect } from "react-router-dom";
 
-import { decodeToken, removeToken } from "@/utils/script";
+import { decodeTokenAsync, removeToken } from "@/utils/script";
 
 const baseURL = import.meta.env.VITE_API_URL;
 
@@ -10,10 +10,10 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(
-	function (config) {
-		const token_local = decodeToken();
-		if (token_local === "string") {
-			config.headers["Bearer"] = token_local;
+	async function (config) {
+		const token_local = await decodeTokenAsync();
+		if (typeof token_local === "string" && !config.headers["authorization"]) {
+			config.headers["authorization"] = `Bearer ${token_local}`;
 		} else {
 			redirect("/login");
 		}

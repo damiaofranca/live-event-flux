@@ -1,6 +1,7 @@
 import { FC } from "react";
-import { useStyles } from "./styles";
 import { Outlet } from "react-router-dom";
+
+import { useStyles } from "./styles";
 
 export const Main: FC = () => {
 	const styles = useStyles();

@@ -38,7 +38,21 @@ const decodeToken = () => {
 		);
 		return bytes.toString(CryptoJS.enc.Utf8);
 	}
+	console.log("humn ain");
 	return "";
+};
+
+const decodeTokenAsync = () => {
+	return new Promise<string>((resolve) => {
+		const token_local = localStorage.getItem(import.meta.env.VITE_LOCAL_TOKEN);
+		if (typeof token_local === "string" && typeof token_local === "string") {
+			const bytes = CryptoJS.AES.decrypt(
+				token_local,
+				import.meta.env.VITE_ENCRYPT_TOKEN,
+			);
+			resolve(bytes.toString(CryptoJS.enc.Utf8));
+		}
+	});
 };
 
 const decodeHash = () => {
@@ -55,4 +69,4 @@ const removeToken = () => {
 	localStorage.removeItem(import.meta.env.VITE_LOCAL_TOKEN);
 };
 
-export { encryptToken, decodeToken, decodeHash, removeToken };
+export { encryptToken, decodeToken, decodeTokenAsync, decodeHash, removeToken };

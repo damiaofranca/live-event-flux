@@ -1,24 +1,25 @@
+import { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-	Button,
 	Menu,
+	Button,
 	MenuItem,
 	MenuList,
 	MenuPopover,
 	MenuTrigger,
-	tokens,
 } from "@fluentui/react-components";
-import { FC, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Logo } from "..";
 import {
-	Settings24Filled,
-	DarkTheme20Filled,
 	People20Filled,
 	SignOut20Filled,
+	Settings24Filled,
+	DarkTheme20Filled,
 } from "@fluentui/react-icons";
-import { useStyles } from "./styles";
+
+import { Logo } from "..";
 import { useAuth, useTheme } from "@/hooks";
 import { decodeHash } from "@/utils/script";
+
+import { useStyles } from "./styles";
 
 interface MenuItem {
 	key: string;
@@ -29,7 +30,6 @@ interface INav {}
 
 export const Nav: FC<INav> = () => {
 	const styles = useStyles();
-	const location = useLocation();
 	const navigate = useNavigate();
 
 	const user = decodeHash();
@@ -41,19 +41,19 @@ export const Nav: FC<INav> = () => {
 		navigate("/account");
 	};
 
-	const paths: MenuItem[] = [
-		{
-			key: "/app",
-			label: `Eventos`,
-		},
-	];
+	// const paths: MenuItem[] = [
+	// 	{
+	// 		key: "/app",
+	// 		label: `Eventos`,
+	// 	},
+	// ];
 
 	return (
 		<div className={styles.root}>
 			<div className={styles.logo}>
 				<Logo height={34} />
 			</div>
-			<div className={styles.containerItems}>
+			{/* <div className={styles.containerItems}>
 				{paths.map((_path) => (
 					<Link
 						to={_path.key}
@@ -71,7 +71,7 @@ export const Nav: FC<INav> = () => {
 						{_path.label}
 					</Link>
 				))}
-			</div>
+			</div> */}
 
 			<div>
 				<Menu>

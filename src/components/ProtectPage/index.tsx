@@ -7,8 +7,8 @@ import { decodeHash, removeToken } from "@/utils/script";
 export type IProtectedPageProps = {
 	redirectTo?: string;
 	validadePage?: boolean;
-	elementProps?: Record<string, unknown>;
 	element?: React.FunctionComponent;
+	elementProps?: Record<string, unknown>;
 };
 
 export const ProtectedPage: React.FC<IProtectedPageProps> = ({

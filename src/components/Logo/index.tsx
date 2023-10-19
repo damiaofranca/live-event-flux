@@ -1,19 +1,23 @@
 import { FC } from "react";
+
+import { useTheme } from "@/hooks";
 import LogoImg from "@assets/images/logo-simple.svg";
 import LogoWhiteImg from "@assets/images/logo-simple-black.svg";
-import { Image } from "./styles";
-import { useTheme } from "@/hooks";
+
+import { useStyles } from "./styles";
 
 interface ILogo extends React.ImgHTMLAttributes<HTMLImageElement> {}
 
 export const Logo: FC<ILogo> = (props) => {
+	const styles = useStyles();
 	const { theme } = useTheme();
 
 	return (
-		<Image
-			src={theme === "light" ? LogoWhiteImg : LogoImg}
-			alt="Live event flux"
+		<img
 			{...props}
+			alt="Live event flux"
+			className={styles.image}
+			src={theme === "light" ? LogoWhiteImg : LogoImg}
 		/>
 	);
 };

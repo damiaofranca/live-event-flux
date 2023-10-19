@@ -6,7 +6,7 @@ import { PUBLIC_SCREENS } from "./public";
 import { PRIVATE_PAGES } from "./private";
 import { AuthProvider } from "@/providers/auth";
 import { ThemeProvider } from "@/providers/theme";
-import { ProtectedPage } from "@/components/protect-page";
+import { ProtectedPage } from "@/components/ProtectPage";
 import "react-toastify/dist/ReactToastify.min.css";
 
 export const Pages: FC = () => {

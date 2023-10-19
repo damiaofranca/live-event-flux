@@ -1,25 +1,22 @@
-import api from "..";
 import {
 	IGetAllRequest,
 	IGetOneRequest,
-	IGetAllResponse,
-	IGetOneResponse,
 	ICreateRequest,
 	IDeleteRequest,
 	IUpdateRequest,
+	IGetOneResponse,
+	IGetAllResponse,
 } from "@/interfacers/event";
-import { ApiRepository } from "./repository";
 import { EventAbstraction } from "./abstraction";
 
 export class EventService implements EventAbstraction {
-	private repo = new ApiRepository(api);
+	constructor(private repo: EventAbstraction) {}
 
-	constructor() {}
 	public create(payload: ICreateRequest): Promise<void> {
 		return this.repo.create(payload);
 	}
 
-	public getAll(payload: IGetAllRequest): Promise<IGetAllResponse[]> {
+	public getAll(payload: IGetAllRequest): Promise<IGetAllResponse> {
 		return this.repo.getAll(payload);
 	}
 

@@ -1,5 +1,6 @@
 export interface IGetAllRequest {
-	filters: {
+	filters?: {
+		name: string;
 		page: string;
 		limit: string;
 	};

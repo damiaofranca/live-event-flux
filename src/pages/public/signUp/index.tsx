@@ -3,15 +3,14 @@ import { FC, useState } from "react";
 
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Card, Label, Text } from "@fluentui/react-components";
+import { Button, Card, Label, Spinner, Text } from "@fluentui/react-components";
 
 import { useAuth } from "@/hooks/useAuth";
-import LogoImg from "@assets/images/logo.svg";
-import { InputForm, Loading, Logo } from "@/components";
+import { registerSchema } from "./schema";
+import { InputForm, Logo } from "@/components";
+import { IRegisterRequest } from "@/interfacers/auth/ILogin";
 
 import { useStyles } from "./styles";
-import { registerSchema } from "./schema";
-import { IRegisterRequest } from "@/interfacers/auth/ILogin";
 
 interface IRegisterSchema extends IRegisterRequest {
 	passwordConfirmation: string;
@@ -120,7 +119,7 @@ export const SignUp: FC = () => {
 							iconPosition="after"
 							className={classes.submitBtn}
 							disabled={!(isValid && dirty)}
-							icon={isLoading ? <Loading raio={8} /> : <></>}
+							icon={isLoading ? <Spinner size="tiny" /> : <></>}
 						>
 							Registrar
 						</Button>
