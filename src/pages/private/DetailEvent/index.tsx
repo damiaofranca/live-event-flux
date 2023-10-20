@@ -18,6 +18,8 @@ import { useDeleteGuest, useGetOneEvent } from "@/api/events";
 import { PageHeader, SkeletonEventDetail } from "@/components";
 
 import { useStyles } from "./styles";
+import { queryClient } from "@/api";
+import DetailOfEventInMap from "@/components/DetailOfEventInMap";
 
 interface IDetailEvent {}
 export const DetailEvent: FC<IDetailEvent> = () => {
@@ -29,6 +31,7 @@ export const DetailEvent: FC<IDetailEvent> = () => {
 	const { mutateAsync: onRemove } = useDeleteGuest({
 		onSuccess: () => {
 			toast.success("Convidado removido com sucesso.", { autoClose: 700 });
+			queryClient.invalidateQueries("events-unique");
 		},
 	});
 
@@ -112,7 +115,14 @@ export const DetailEvent: FC<IDetailEvent> = () => {
 						/>
 					</div>
 				</div>
-				<div className={styles.containerWrapper}>mapa</div>
+				<div className={styles.containerWrapper}>
+					<DetailOfEventInMap
+						initialCoordinates={{
+							lat: Number(data.coordinate[0]),
+							lng: Number(data.coordinate[1]),
+						}}
+					/>
+				</div>
 			</div>
 		</div>
 	);

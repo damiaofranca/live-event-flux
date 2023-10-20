@@ -4,12 +4,12 @@ import { Spinner, tokens } from "@fluentui/react-components";
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 
 interface IDetailOfEventInMap {
-	initialCoordinates?: { lat: number; lng: number };
+	initialCoordinates: { lat: number; lng: number };
 }
 
 const Map: React.FC<IDetailOfEventInMap> = ({ initialCoordinates }) => {
 	useEffect(() => {
-		new window.google.maps.Map(document.getElementById("map")!, {
+		const map = new window.google.maps.Map(document.getElementById("map")!, {
 			tilt: 0,
 			zoom: 13,
 			mapTypeId: "satellite",
@@ -17,17 +17,17 @@ const Map: React.FC<IDetailOfEventInMap> = ({ initialCoordinates }) => {
 			center: initialCoordinates,
 		});
 
-		// const marker = new google.maps.Marker({
-		// 	map,
-		// 	draggable: false,
-		// 	...(initialCoordinates ? { position: initialCoordinates } : {}),
-		// });
+		new google.maps.Marker({
+			map,
+			draggable: false,
+			position: initialCoordinates,
+		});
 	}, []);
 
 	return (
 		<div
 			style={{
-				width: "75%",
+				width: "100%",
 				height: "100%",
 			}}
 		>

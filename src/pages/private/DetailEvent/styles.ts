@@ -12,10 +12,15 @@ export const useStyles = makeStyles({
 	},
 
 	content: {
+		height: "100%",
 		display: "grid",
 		gridTemplateColumns: "30% 70%",
 		"@media screen and (max-width: 620px)": {
 			gridTemplateColumns: "auto",
+		},
+		"@media screen and (max-width: 870px)": {
+			display: "flex",
+			flexDirection: "column",
 		},
 		...shorthands.gap("10px"),
 	},
@@ -27,13 +32,19 @@ export const useStyles = makeStyles({
 		...shorthands.borderRadius(tokens.borderRadiusLarge),
 
 		"&.left": {
+			height: "fit-content",
 			...shorthands.padding("26px", "20px"),
+		},
+
+		"@media screen and (max-width: 870px)": {
+			minHeight: "480px",
 		},
 	},
 
 	containerInfo: {
 		display: "flex",
 		marginBottom: "8px",
+		alignItems: "center",
 		flexDirection: "column",
 	},
 
@@ -41,6 +52,7 @@ export const useStyles = makeStyles({
 
 	containerImg: {
 		width: "100%",
+		height: "100%",
 		display: "flex",
 		justifyContent: "center",
 	},
@@ -49,6 +61,10 @@ export const useStyles = makeStyles({
 		width: "300px",
 		height: "auto",
 		...shorthands.borderRadius(tokens.borderRadiusLarge),
+
+		"@media screen and (max-width: 1130px)": {
+			width: "220px",
+		},
 	},
 
 	list: {
