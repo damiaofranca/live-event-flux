@@ -39,9 +39,6 @@ export const GuestList: FC<IGuestList> = (props) => {
 
 	return (
 		<Dialog open={open}>
-			<DialogTrigger disableButtonEnhancement>
-				<Button>Open dialog</Button>
-			</DialogTrigger>
 			<DialogSurface>
 				<DialogBody>
 					<DialogTitle>Lista de convidados: {props.event}</DialogTitle>

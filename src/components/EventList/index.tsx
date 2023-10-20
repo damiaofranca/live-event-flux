@@ -3,7 +3,6 @@ import {
 	Menu,
 	Table,
 	Button,
-	Tooltip,
 	MenuItem,
 	TableRow,
 	MenuList,
@@ -20,7 +19,9 @@ import { toast } from "react-toastify";
 
 import {
 	Map20Filled,
+	Link20Filled,
 	Edit20Regular,
+	Password20Filled,
 	SlideSearch20Regular,
 	Accessibility20Filled,
 	DeleteDismiss20Regular,
@@ -32,7 +33,7 @@ import { queryClient } from "@/api";
 import { IEvent } from "@/interfacers/event";
 import { formatDate } from "@/utils/format-date";
 import { copyToClipboard } from "@/utils/clipboard";
-import { GuestList, SkeletonEvent, UpdateEvent } from "..";
+import { GuestList, NoData, SkeletonEvent, UpdateEvent } from "..";
 import { useDeleteEvent, useGetAllEvent } from "@/api/events";
 
 import { useStyles } from "./styles";
@@ -45,6 +46,7 @@ interface ISelectedGuestsEvent
 
 const columns = [
 	{ columnKey: "event", label: "Nome" },
+	{ columnKey: "password", label: "Senha" },
 	{ columnKey: "link_detail", label: "Link para convidados" },
 	{ columnKey: "coordinates", label: "Coordenadas" },
 	{ columnKey: "createAt", label: "Criado em" },
@@ -100,118 +102,97 @@ export const EventList: FC<IEventList> = () => {
 
 	return (
 		<>
-			<Table arial-label="Default table">
-				<TableHeader>
-					<TableRow>
-						{columns.map((column) => (
-							<TableHeaderCell key={column.columnKey}>
-								{column.label}
-							</TableHeaderCell>
-						))}
-					</TableRow>
-				</TableHeader>
-				<TableBody>
-					{data.items.map((item) => (
-						<TableRow key={item.id} style={{}}>
-							<TableCell className={styles.tableCell}>
-								<TableCellLayout media={<Accessibility20Filled />}>
-									{item.event}
-								</TableCellLayout>
-							</TableCell>
-							<TableCell className={styles.tableCell}>
-								<TableCellLayout>
-									<Button
-										appearance="transparent"
-										onClick={() => onCopyLink(item.link_detail)}
-									>
-										{item.link_detail.substring(0, 26) + "..."}
-									</Button>
-								</TableCellLayout>
-							</TableCell>
-							<TableCell className={styles.tableCell}>
-								<TableCellLayout media={<Map20Filled />}>
-									{item.coordinate[0]} <br />
-									{item.coordinate[1]}
-								</TableCellLayout>
-							</TableCell>
-							<TableCell className={styles.tableCell}>
-								<TableCellLayout>{formatDate(item.createdAt)}</TableCellLayout>
-							</TableCell>
-							<TableCell className={styles.tableCell}>
-								<TableCellLayout className={styles.actionsDesktop}>
-									<Tooltip content="Verificar convidados" relationship="label">
-										<Button
-											icon={<PeopleCheckmark20Filled />}
-											className={styles.containerAction}
-											onClick={() => {
-												onShowDetailsGuests(item);
-											}}
-										/>
-									</Tooltip>
-									<Tooltip content="Detalhes" relationship="label">
-										<Button
-											icon={<SlideSearch20Regular />}
-											onClick={() => onDetail(item.id)}
-											className={styles.containerAction}
-										/>
-									</Tooltip>
-									<Tooltip content="Editar evento" relationship="label">
-										<Button
-											icon={<Edit20Regular />}
-											onClick={() => onUpdate(item)}
-											className={styles.containerAction}
-										/>
-									</Tooltip>
-									<Tooltip content="Cancelar evento" relationship="label">
-										<Button
-											icon={<DeleteDismiss20Regular />}
-											className={styles.containerAction}
-											onClick={() => onDelete({ id: item.id })}
-										/>
-									</Tooltip>
-								</TableCellLayout>
-								<TableCellLayout className={styles.actionsMobile}>
-									<Menu>
-										<MenuTrigger disableButtonEnhancement>
-											<MenuButton icon={<AppsListDetail20Regular />} />
-										</MenuTrigger>
-										<MenuPopover>
-											<MenuList>
-												<MenuItem
-													icon={<PeopleCheckmark20Filled />}
-													onClick={() => {
-														onShowDetailsGuests(item);
-													}}
-												>
-													Verificar convidados
-												</MenuItem>
-												<MenuItem
-													icon={<SlideSearch20Regular />}
-													onClick={() => onDetail(item.id)}
-												>
-													Detalhes
-												</MenuItem>
-												<MenuItem
-													icon={<Edit20Regular />}
-													onClick={() => onUpdate(item)}
-												>
-													Editar evento
-												</MenuItem>
-												<MenuItem
-													onClick={() => onDelete({ id: item.id })}
-													icon={<DeleteDismiss20Regular />}
-												>
-													Cancelar evento
-												</MenuItem>
-											</MenuList>
-										</MenuPopover>
-									</Menu>
-								</TableCellLayout>
-							</TableCell>
+			{data.items.length ? (
+				<Table arial-label="Default table">
+					<TableHeader>
+						<TableRow>
+							{columns.map((column) => (
+								<TableHeaderCell key={column.columnKey}>
+									{column.label}
+								</TableHeaderCell>
+							))}
 						</TableRow>
-					))}
-				</TableBody>
-			</Table>
+					</TableHeader>
+					<TableBody>
+						{data.items.map((item) => (
+							<TableRow key={item.id} style={{}}>
+								<TableCell className={styles.tableCell}>
+									<TableCellLayout media={<Accessibility20Filled />}>
+										{item.event}
+									</TableCellLayout>
+								</TableCell>
+								<TableCell className={styles.tableCell}>
+									<TableCellLayout media={<Password20Filled />}>
+										{item.password}
+									</TableCellLayout>
+								</TableCell>
+								<TableCell className={styles.tableCell}>
+									<TableCellLayout media={<Link20Filled />}>
+										<Button
+											appearance="transparent"
+											onClick={() => onCopyLink(item.link_detail)}
+										>
+											{item.link_detail.substring(0, 26) + "..."}
+										</Button>
+									</TableCellLayout>
+								</TableCell>
+								<TableCell className={styles.tableCell}>
+									<TableCellLayout media={<Map20Filled />}>
+										{item.coordinate[0]} <br />
+										{item.coordinate[1]}
+									</TableCellLayout>
+								</TableCell>
+								<TableCell className={styles.tableCell}>
+									<TableCellLayout>
+										{formatDate(item.createdAt)}
+									</TableCellLayout>
+								</TableCell>
+								<TableCell className={styles.tableCell}>
+									<TableCellLayout>
+										<Menu positioning="below-end">
+											<MenuTrigger disableButtonEnhancement>
+												<MenuButton icon={<AppsListDetail20Regular />} />
+											</MenuTrigger>
+											<MenuPopover>
+												<MenuList>
+													<MenuItem
+														icon={<PeopleCheckmark20Filled />}
+														onClick={() => {
+															onShowDetailsGuests(item);
+														}}
+													>
+														Verificar convidados
+													</MenuItem>
+													<MenuItem
+														icon={<SlideSearch20Regular />}
+														onClick={() => onDetail(item.id)}
+													>
+														Detalhes
+													</MenuItem>
+													<MenuItem
+														icon={<Edit20Regular />}
+														onClick={() => onUpdate(item)}
+													>
+														Editar evento
+													</MenuItem>
+													<MenuItem
+														onClick={() => onDelete({ id: item.id })}
+														icon={<DeleteDismiss20Regular />}
+													>
+														Cancelar evento
+													</MenuItem>
+												</MenuList>
+											</MenuPopover>
+										</Menu>
+									</TableCellLayout>
+								</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			) : (
+				<NoData sizeIcon={400} />
+			)}
 			{selectedGuestsEvent ? (
 				<GuestList {...selectedGuestsEvent} onClose={onCloseDetailsGuests} />
 			) : null}

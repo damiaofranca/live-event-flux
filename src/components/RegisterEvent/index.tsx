@@ -51,6 +51,8 @@ export const RegisterEvent: FC<IRegisterEventModal> = (props) => {
 		handleBlur,
 		handleChange,
 		handleSubmit,
+		setFieldValue,
+		setFieldTouched,
 	} = useFormik<IRegisterEventFormik>({
 		initialValues: {
 			lat: "",
@@ -68,11 +70,21 @@ export const RegisterEvent: FC<IRegisterEventModal> = (props) => {
 		},
 	});
 
+	const onSetValueCoordinate = async ({
+		lat,
+		lng,
+	}: {
+		lat: number;
+		lng: number;
+	}) => {
+		await setFieldValue("lat", lat, true);
+		await setFieldValue("lng", lng, true);
+		setFieldTouched("lat");
+		setFieldTouched("lng");
+	};
+
 	return (
 		<Dialog open={props.open}>
-			<DialogTrigger disableButtonEnhancement>
-				<Button>Open dialog</Button>
-			</DialogTrigger>
 			<DialogSurface>
 				<form name="login_form" onSubmit={handleSubmit}>
 					<DialogBody>
@@ -85,9 +97,9 @@ export const RegisterEvent: FC<IRegisterEventModal> = (props) => {
 										type="text"
 										name="event"
 										onBlur={handleBlur}
-										label="Empreendimento"
 										error={errors.event}
 										value={values.event}
+										label="Empreendimento"
 										onChange={handleChange}
 										touched={touched.event}
 										placeholder="Digite seu Nome (ou empreendimento)"
@@ -109,20 +121,15 @@ export const RegisterEvent: FC<IRegisterEventModal> = (props) => {
 								</div>
 								<div className={styles.coordinatesContainer}>
 									<div className={styles.formItem}>
-										<SelectLocationByMap />
-									</div>
-
-									{/* <div className={styles.formItem}>
 										<InputForm
 											required
-											type="text"
+											disabled
 											name="lat"
+											type="text"
 											label="Latitude"
-											onBlur={handleBlur}
 											error={errors.lat}
 											value={values.lat}
 											touched={touched.lat}
-											onChange={handleChange}
 											placeholder="Digite a latitude do evento"
 										/>
 									</div>
@@ -132,6 +139,7 @@ export const RegisterEvent: FC<IRegisterEventModal> = (props) => {
 									>
 										<InputForm
 											required
+											disabled
 											name="lng"
 											type="text"
 											label="Longitude"
@@ -142,7 +150,10 @@ export const RegisterEvent: FC<IRegisterEventModal> = (props) => {
 											onChange={handleChange}
 											placeholder="Digite a longitude do evento"
 										/>
-									</div> */}
+									</div>
+								</div>
+								<div className={styles.formItem}>
+									<SelectLocationByMap onGetcoodinates={onSetValueCoordinate} />
 								</div>
 							</div>
 						</DialogContent>

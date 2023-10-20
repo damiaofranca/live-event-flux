@@ -2,6 +2,7 @@
 export * from "./Nav";
 export * from "./Main";
 export * from "./Logo";
+export * from "./NoData";
 export * from "./InputForm";
 export * from "./EventList";
 export * from "./GuestList";

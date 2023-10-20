@@ -13,7 +13,7 @@ import {
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 
-import { InputForm } from "..";
+import { InputForm, SelectLocationByMap } from "..";
 import { queryClient } from "@/api";
 import { updateEventSchema } from "./schema";
 import { ICreateRequest, IEvent } from "@/interfacers/event";
@@ -52,6 +52,8 @@ export const UpdateEvent: FC<IUpdateEventModal> = (props) => {
 		handleBlur,
 		handleChange,
 		handleSubmit,
+		setFieldValue,
+		setFieldTouched,
 	} = useFormik<IUpdateEventFormik>({
 		initialValues: {
 			event: props.initialValues.event,
@@ -74,11 +76,21 @@ export const UpdateEvent: FC<IUpdateEventModal> = (props) => {
 		},
 	});
 
+	const onSetValueCoordinate = async ({
+		lat,
+		lng,
+	}: {
+		lat: number;
+		lng: number;
+	}) => {
+		await setFieldValue("lat", lat, true);
+		await setFieldValue("lng", lng, true);
+		setFieldTouched("lat");
+		setFieldTouched("lng");
+	};
+
 	return (
 		<Dialog open={props.open}>
-			<DialogTrigger disableButtonEnhancement>
-				<Button>Open dialog</Button>
-			</DialogTrigger>
 			<DialogSurface>
 				<form name="login_form" onSubmit={handleSubmit}>
 					<DialogBody>
@@ -99,12 +111,27 @@ export const UpdateEvent: FC<IUpdateEventModal> = (props) => {
 										placeholder="Digite seu Nome (ou empreendimento)"
 									/>
 								</div>
+								<div className={styles.formItem}>
+									<InputForm
+										required
+										label="Senha"
+										name="password"
+										type="password"
+										onBlur={handleBlur}
+										onChange={handleChange}
+										error={errors.password}
+										value={values.password}
+										touched={touched.password}
+										placeholder="Digite sua senha"
+									/>
+								</div>
 								<div className={styles.coordinatesContainer}>
 									<div className={styles.formItem}>
 										<InputForm
 											required
-											type="text"
+											disabled
 											name="lat"
+											type="text"
 											label="Latitude"
 											onBlur={handleBlur}
 											error={errors.lat}
@@ -120,6 +147,7 @@ export const UpdateEvent: FC<IUpdateEventModal> = (props) => {
 									>
 										<InputForm
 											required
+											disabled
 											name="lng"
 											type="text"
 											label="Longitude"
@@ -132,18 +160,14 @@ export const UpdateEvent: FC<IUpdateEventModal> = (props) => {
 										/>
 									</div>
 								</div>
+
 								<div className={styles.formItem}>
-									<InputForm
-										required
-										label="Senha"
-										name="password"
-										type="password"
-										onBlur={handleBlur}
-										onChange={handleChange}
-										error={errors.password}
-										value={values.password}
-										touched={touched.password}
-										placeholder="Digite sua senha"
+									<SelectLocationByMap
+										onGetcoodinates={onSetValueCoordinate}
+										initialCoordinates={{
+											lat: Number(values.lat),
+											lng: Number(values.lng),
+										}}
 									/>
 								</div>
 							</div>

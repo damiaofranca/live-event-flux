@@ -9,6 +9,7 @@ interface IInputForm {
 	value: string;
 	error?: string;
 	touched?: boolean;
+	disabled?: boolean;
 	required?: boolean;
 	className?: string;
 	placeholder: string;
@@ -24,6 +25,7 @@ export const InputForm: FC<IInputForm> = ({
 	error,
 	touched,
 	required,
+	disabled,
 	className,
 	placeholder,
 
@@ -66,6 +68,7 @@ export const InputForm: FC<IInputForm> = ({
 				value={value}
 				onBlur={onBlur}
 				onChange={onChange}
+				disabled={disabled}
 				placeholder={placeholder}
 			/>
 		</Field>

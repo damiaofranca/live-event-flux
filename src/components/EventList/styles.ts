@@ -17,21 +17,6 @@ export const useStyles = makeStyles({
 		},
 	},
 
-	actionsDesktop: {
-		display: "flex",
-		"@media screen and (max-width: 790px)": {
-			display: "none",
-		},
-	},
-
-	actionsMobile: {
-		display: "none",
-
-		"@media screen and (max-width: 790px)": {
-			display: "flex",
-		},
-	},
-
 	containerAction: {
 		...shorthands.marginInline("0", "8px"),
 	},
