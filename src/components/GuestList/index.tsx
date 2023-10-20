@@ -47,18 +47,20 @@ export const GuestList: FC<IGuestList> = (props) => {
 							{props.guests.length ? (
 								props.guests.map((guest) => (
 									<Card
-										key={guest}
+										key={guest.guest}
 										className={styles.card}
 										orientation="horizontal"
 									>
-										<Text weight="semibold">{guest}</Text>
+										<Text weight="semibold">{guest.guest}</Text>
 
 										<Tooltip content="Remover convidado" relationship="label">
 											<Button
 												appearance="transparent"
 												aria-label="More options"
 												icon={<DeleteDismiss20Filled />}
-												onClick={() => onRemove({ guest, id: props.id })}
+												onClick={() =>
+													onRemove({ guest: guest.guest, id: props.id })
+												}
 											/>
 										</Tooltip>
 									</Card>

@@ -1,13 +1,77 @@
-import { makeStyles } from "@fluentui/react-components";
+import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
 
 export const useStyles = makeStyles({
 	root: {
 		height: "100%",
 		widows: "100%",
 		display: "flex",
-		justifyContent: "space-between",
+		flexDirection: "column",
 		"@media screen and (max-width: 620px)": {},
 
 		"@media screen and (max-width: 1200px)": {},
+	},
+
+	content: {
+		display: "grid",
+		gridTemplateColumns: "30% 70%",
+		"@media screen and (max-width: 620px)": {
+			gridTemplateColumns: "auto",
+		},
+		...shorthands.gap("10px"),
+	},
+
+	containerWrapper: {
+		display: "flex",
+		flexDirection: "column",
+		backgroundColor: tokens.colorNeutralBackground4Hover,
+		...shorthands.borderRadius(tokens.borderRadiusLarge),
+
+		"&.left": {
+			...shorthands.padding("26px", "20px"),
+		},
+	},
+
+	containerInfo: {
+		display: "flex",
+		marginBottom: "8px",
+		flexDirection: "column",
+	},
+
+	labelInfo: {},
+
+	containerImg: {
+		width: "100%",
+		display: "flex",
+		justifyContent: "center",
+	},
+
+	qrCodeImg: {
+		width: "300px",
+		height: "auto",
+		...shorthands.borderRadius(tokens.borderRadiusLarge),
+	},
+
+	list: {
+		...shorthands.padding("10px", "0px", "10px", "0px"),
+		overflowY: "auto",
+		maxHeight: "230px",
+		height: "min-content",
+
+		"::-webkit-scrollbar-track": {
+			backgroundColor: "#F5F5F5",
+		},
+		"::-webkit-scrollbar": {
+			width: "3px",
+			backgroundColor: "red",
+		},
+		"::-webkit-scrollbar-thumb": {
+			backgroundColor: tokens.colorNeutralForeground1,
+		},
+	},
+
+	card: {
+		maxWidth: "100%",
+		height: "fit-content",
+		...shorthands.margin("10px", "0px", "10px", "0px"),
 	},
 });

@@ -12,3 +12,4 @@ export * from "./UpdateEvent";
 export * from "./SkeletonEvent";
 export * from "./RegisterEvent";
 export * from "./SelectLocationByMap";
+export * from "./SkeletonEventDetail";

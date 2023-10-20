@@ -15,9 +15,10 @@ export interface IEvent {
 	id: string;
 	event: string;
 	password: string;
-	guests: string[];
 	link_detail: string;
+	user: { id: string };
 	coordinate: [string, string];
+	guests: { guest: string; entry_date: string }[];
 	createdAt: string;
 	updateAt: string;
 }

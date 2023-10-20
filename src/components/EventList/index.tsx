@@ -156,18 +156,18 @@ export const EventList: FC<IEventList> = () => {
 											<MenuPopover>
 												<MenuList>
 													<MenuItem
+														icon={<SlideSearch20Regular />}
+														onClick={() => onDetail(item.id)}
+													>
+														Detalhes
+													</MenuItem>
+													<MenuItem
 														icon={<PeopleCheckmark20Filled />}
 														onClick={() => {
 															onShowDetailsGuests(item);
 														}}
 													>
 														Verificar convidados
-													</MenuItem>
-													<MenuItem
-														icon={<SlideSearch20Regular />}
-														onClick={() => onDetail(item.id)}
-													>
-														Detalhes
 													</MenuItem>
 													<MenuItem
 														icon={<Edit20Regular />}

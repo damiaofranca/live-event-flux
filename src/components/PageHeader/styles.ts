@@ -16,6 +16,11 @@ export const useStyles = makeStyles({
 		flexDirection: "column",
 	},
 
+	wrapperLeftSide: {
+		display: "flex",
+		alignItems: "center",
+	},
+
 	rightside: {
 		display: "flex",
 	},

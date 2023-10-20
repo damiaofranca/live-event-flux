@@ -6,6 +6,7 @@ interface IPageHeader {
 	title: string;
 	subTitle?: string;
 	extra?: ReactNode;
+	beforeAction?: ReactNode;
 }
 
 export const PageHeader: FC<IPageHeader> = (props) => {
@@ -13,9 +14,12 @@ export const PageHeader: FC<IPageHeader> = (props) => {
 	return (
 		<div className={styles.root}>
 			<div className={styles.leftside}>
-				<Title2 as="h3" className={styles.title}>
-					{props.title}
-				</Title2>
+				<div className={styles.wrapperLeftSide}>
+					{props.beforeAction ? props.beforeAction : null}
+					<Title2 as="h3" className={styles.title}>
+						{props.title}
+					</Title2>
+				</div>
 				{props.subTitle ? (
 					<Subtitle2 as="h3" className={styles.title}>
 						{props.title}

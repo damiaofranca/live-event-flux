@@ -2,9 +2,9 @@ import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
 
 export const useStyles = makeStyles({
 	card: {
-		...shorthands.margin("10px", "0px", "10px", "0px"),
 		maxWidth: "100%",
 		height: "fit-content",
+		...shorthands.margin("10px", "0px", "10px", "0px"),
 	},
 
 	list: {
@@ -26,11 +26,11 @@ export const useStyles = makeStyles({
 	},
 
 	notFound: {
-		...shorthands.margin("16px", "0px", "16px", "0px"),
 		width: "100%",
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "center",
 		color: tokens.colorNeutralStrokeDisabled,
+		...shorthands.margin("16px", "0px", "16px", "0px"),
 	},
 });
