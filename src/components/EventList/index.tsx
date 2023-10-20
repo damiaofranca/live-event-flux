@@ -1,21 +1,22 @@
 import { FC, useState } from "react";
 import {
-	Button,
+	Menu,
 	Table,
+	Button,
 	Tooltip,
+	MenuItem,
 	TableRow,
+	MenuList,
 	TableBody,
 	TableCell,
-	TableHeader,
-	TableHeaderCell,
-	TableCellLayout,
-	Menu,
 	MenuButton,
-	MenuItem,
-	MenuList,
 	MenuPopover,
 	MenuTrigger,
+	TableHeader,
+	TableCellLayout,
+	TableHeaderCell,
 } from "@fluentui/react-components";
+import { toast } from "react-toastify";
 
 import {
 	Map20Filled,
@@ -27,13 +28,15 @@ import {
 	AppsListDetail20Regular,
 } from "@fluentui/react-icons";
 
-import { GuestList, SkeletonEvent } from "..";
-import { useGetAll } from "@/api/events";
+import { queryClient } from "@/api";
 import { IEvent } from "@/interfacers/event";
 import { formatDate } from "@/utils/format-date";
 import { copyToClipboard } from "@/utils/clipboard";
+import { GuestList, SkeletonEvent, UpdateEvent } from "..";
+import { useDeleteEvent, useGetAllEvent } from "@/api/events";
 
 import { useStyles } from "./styles";
+import { useNavigate } from "react-router-dom";
 
 interface IEventList {}
 
@@ -50,10 +53,19 @@ const columns = [
 
 export const EventList: FC<IEventList> = () => {
 	const styles = useStyles();
-	const { data, isLoading } = useGetAll({});
+	const navigate = useNavigate();
+	const { data, isLoading } = useGetAllEvent({});
 	const [selectedGuestsEvent, setSelectedGuestsEvent] =
 		useState<ISelectedGuestsEvent | null>(null);
-
+	const [selectedEventUpdate, setSelectedEventUpdate] = useState<IEvent | null>(
+		null,
+	);
+	const { mutateAsync: onDelete } = useDeleteEvent({
+		onSuccess: () => {
+			toast.success("Evento deletado com sucesso.", { autoClose: 700 });
+			queryClient.invalidateQueries("events");
+		},
+	});
 	if (!data || isLoading) {
 		return <SkeletonEvent />;
 	}
@@ -61,6 +73,7 @@ export const EventList: FC<IEventList> = () => {
 	const onCloseDetailsGuests = () => {
 		setSelectedGuestsEvent(null);
 	};
+
 	const onShowDetailsGuests = (values: IEvent) => {
 		setSelectedGuestsEvent({
 			id: values.id,
@@ -69,16 +82,16 @@ export const EventList: FC<IEventList> = () => {
 		});
 	};
 
-	const onDelete = (id: string) => {
-		console.log(id);
-	};
-
 	const onDetail = (id: string) => {
-		console.log(id);
+		navigate(`/app/event/${id}`);
 	};
 
 	const onUpdate = (values: IEvent) => {
-		console.log(values);
+		setSelectedEventUpdate(values);
+	};
+
+	const onCancelUpdate = () => {
+		setSelectedEventUpdate(null);
 	};
 
 	const onCopyLink = (link: string) => {
@@ -151,9 +164,9 @@ export const EventList: FC<IEventList> = () => {
 									</Tooltip>
 									<Tooltip content="Cancelar evento" relationship="label">
 										<Button
-											onClick={() => onDelete(item.id)}
 											icon={<DeleteDismiss20Regular />}
 											className={styles.containerAction}
+											onClick={() => onDelete({ id: item.id })}
 										/>
 									</Tooltip>
 								</TableCellLayout>
@@ -185,7 +198,7 @@ export const EventList: FC<IEventList> = () => {
 													Editar evento
 												</MenuItem>
 												<MenuItem
-													onClick={() => onDelete(item.id)}
+													onClick={() => onDelete({ id: item.id })}
 													icon={<DeleteDismiss20Regular />}
 												>
 													Cancelar evento
@@ -201,6 +214,13 @@ export const EventList: FC<IEventList> = () => {
 			</Table>
 			{selectedGuestsEvent ? (
 				<GuestList {...selectedGuestsEvent} onClose={onCloseDetailsGuests} />
+			) : null}
+			{selectedEventUpdate ? (
+				<UpdateEvent
+					onClose={onCancelUpdate}
+					initialValues={selectedEventUpdate}
+					open={selectedEventUpdate ? true : false}
+				/>
 			) : null}
 		</>
 	);

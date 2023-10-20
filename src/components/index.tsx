@@ -7,4 +7,7 @@ export * from "./EventList";
 export * from "./GuestList";
 export * from "./PageHeader";
 export * from "./ProtectPage";
+export * from "./UpdateEvent";
 export * from "./SkeletonEvent";
+export * from "./RegisterEvent";
+export * from "./SelectLocationByMap";

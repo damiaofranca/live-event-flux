@@ -41,6 +41,10 @@ export const Nav: FC<INav> = () => {
 		navigate("/account");
 	};
 
+	const onNavigateToDashboard = () => {
+		navigate(`/app`);
+	};
+
 	// const paths: MenuItem[] = [
 	// 	{
 	// 		key: "/app",
@@ -51,7 +55,14 @@ export const Nav: FC<INav> = () => {
 	return (
 		<div className={styles.root}>
 			<div className={styles.logo}>
-				<Logo height={34} />
+				<Logo
+					onClick={onNavigateToDashboard}
+					style={{
+						height: "34px",
+						cursor: "pointer",
+						pointerEvents: "initial",
+					}}
+				/>
 			</div>
 			{/* <div className={styles.containerItems}>
 				{paths.map((_path) => (

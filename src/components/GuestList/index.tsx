@@ -14,14 +14,13 @@ import {
 	DialogActions,
 } from "@fluentui/react-components";
 import { toast } from "react-toastify";
-
 import { DeleteDismiss20Filled } from "@fluentui/react-icons";
 
 import { queryClient } from "@/api";
 import { IEvent } from "@/interfacers/event";
+import { useDeleteGuest } from "@/api/events";
 
 import { useStyles } from "./styles";
-import { useDeleteGuest } from "@/api/events";
 
 interface IGuestList extends Pick<IEvent, "guests" | "event" | "id"> {
 	onClose: () => void;
